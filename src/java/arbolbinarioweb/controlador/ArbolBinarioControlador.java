@@ -42,7 +42,7 @@ public class ArbolBinarioControlador implements Serializable {
     private boolean verNiveles = false;
     private boolean verNivelesOrdenado = false;
     private boolean verhojas = false;
-    
+    private boolean verbuscar = false;
     
     
     
@@ -137,9 +137,13 @@ public class ArbolBinarioControlador implements Serializable {
     }
     
     
+        public boolean isVerbuscar() {
+        return verbuscar;
+    }
     
-    
-    
+        public void setVerbuscar(boolean verbuscar) {
+        this.verbuscar = verbuscar;
+    }
     
     
     
@@ -261,8 +265,32 @@ public class ArbolBinarioControlador implements Serializable {
         }
     } 
          
-         
-         
+    public void buscar() {
+        
+        int x = this.dato;
+        System.out.println(arbol.buscar(x));
+    } 
+    
+    public int buscarPadre(){
+        try {
+            arbol.isLleno();
+            verbuscar = true;
+            verhojas = false;
+            verNivelesOrdenado = false;
+            verNiveles = false;
+            verPostOrden = false;
+            verPreorden = false;
+            verInOrden = false;
+
+            int x = this.dato;
+            return arbol.padre(x);
+
+        } catch (ArbolBinarioException ex) {
+            JsfUtil.addErrorMessage(ex.getMessage());
+
+        }
+        return 0;
+    }
          
          
          

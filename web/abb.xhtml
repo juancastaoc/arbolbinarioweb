@@ -24,7 +24,8 @@
                 <p:commandButton value="PorNiveles" action="#{arbolBinarioControlador.habilitarVistaPorNiveles()}" update="@all" ajax="false" />
                 <p:commandButton value="NivelOrdenado" action="#{arbolBinarioControlador.habilitarVistaPorNivelesOrdenado()}" update="@all" ajax="false"/>
                 <p:commandButton value="HojasdelArbol" action="#{arbolBinarioControlador.habilitarVistaHojas()}" update="@all" ajax="false"/>
-
+                <p:commandButton value="buscar" action="#{arbolBinarioControlador.buscar()}" update="@all" ajax="false"/>
+                <p:commandButton value="buscarPadre" action="#{arbolBinarioControlador.buscarPadre()}" update="@all" ajax="false"/>
                 
             </p:panel>
         </h:form>
@@ -104,9 +105,21 @@
                 </p:dataTable>
              </p:panel>    
             
-            
+            <p:panel header="El padre es: " rendered="#{arbolBinarioControlador.verbuscar}">
+                <p:dataTable   var="nodo" value="#{arbolBinarioControlador.buscarPadre()}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{nodo}" />
+                    </p:column>
+
+                </p:dataTable>
+             </p:panel>
             
         
+            
+            
+            
+            
+            
             
             
             
