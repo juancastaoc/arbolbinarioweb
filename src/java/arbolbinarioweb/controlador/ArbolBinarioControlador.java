@@ -324,13 +324,14 @@ public class ArbolBinarioControlador implements Serializable {
 
         } catch (Exception ex) {
             JsfUtil.addErrorMessage(ex.getMessage());
-        }
-            
+        }           
         
-        
+     }    
+         
+     public void borrarMayor(){
+        this.arbol.borrarMayor();
+        this.pintarArbol();
     }    
-         
-         
          
          
          
