@@ -21,7 +21,8 @@
                 <p:commandButton value="InOrden" action="#{arbolBinarioControlador.habilitarInOrden()}" update="@all" ajax="false"/>
                 <p:commandButton value="PreOrden" action="#{arbolBinarioControlador.habilitarPreOrden()}" update="@all" ajax="false" />
                 <p:commandButton value="PostOrden" action="#{arbolBinarioControlador.habilitarPostOrden()}" update="@all" ajax="false" />
-                
+                <p:commandButton value="PorNiveles" action="#{arbolBinarioControlador.habilitarVistaPorNiveles()}" update="@all" ajax="false" />
+
                 
                 
             </p:panel>
@@ -76,8 +77,18 @@
                 </p:dataTable>
              </p:panel>
         
+            <p:panel header="Vista Por Niveles" rendered="#{arbolBinarioControlador.verNiveles}">
+                <p:dataTable   var="nodo" value="#{arbolBinarioControlador.arbol.impNiveles()}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{nodo}" />
+                    </p:column>
+                </p:dataTable>
+             </p:panel>
         
         
+            
+            
+            
         
             
             
