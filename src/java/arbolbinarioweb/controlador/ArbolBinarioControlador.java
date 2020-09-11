@@ -38,7 +38,7 @@ public class ArbolBinarioControlador implements Serializable {
     private int dato;
     private boolean verInOrden = false;
     private boolean verPreorden = false;
-    
+    private boolean verPostOrden = false;
     
     
     
@@ -104,7 +104,13 @@ public class ArbolBinarioControlador implements Serializable {
     }
     
     
-    
+            public boolean isVerPostOrden() {
+        return verPostOrden;
+    }
+
+    public void setVerPostOrden(boolean verPostOrden) {
+        this.verPostOrden = verPostOrden;
+    }
     
     
     
@@ -182,7 +188,19 @@ public class ArbolBinarioControlador implements Serializable {
         }
     } 
     
-    
+        public void habilitarPostOrden (){
+        try {
+            arbol.isLleno();
+            verPostOrden = true;
+            verPreorden = false;
+            verInOrden = false;  
+            
+
+        } catch (ArbolBinarioException ex) {
+            JsfUtil.addErrorMessage(ex.getMessage());
+
+        }
+    }
     
     
     

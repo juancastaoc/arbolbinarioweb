@@ -20,7 +20,7 @@
                                  update="@all" />
                 <p:commandButton value="InOrden" action="#{arbolBinarioControlador.habilitarInOrden()}" update="@all" ajax="false"/>
                 <p:commandButton value="PreOrden" action="#{arbolBinarioControlador.habilitarPreOrden()}" update="@all" ajax="false" />
-
+                <p:commandButton value="PostOrden" action="#{arbolBinarioControlador.habilitarPostOrden()}" update="@all" ajax="false" />
                 
                 
                 
@@ -67,7 +67,14 @@
              </p:panel>
 
 
-        
+         <p:panel header="PostOrden" rendered="#{arbolBinarioControlador.verPostOrden}">
+                <p:dataTable   var="nodo" value="#{arbolBinarioControlador.arbol.postOrden()}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{nodo}" />
+                    </p:column>
+
+                </p:dataTable>
+             </p:panel>
         
         
         
