@@ -32,13 +32,25 @@
                 <p:commandButton value="Borrar Mayor" action="#{arbolBinarioControlador.borrarMayor()}" update="@all" ajax="false"/>
                 <p:commandButton value="BorrarMenor"  action="#{arbolBinarioControlador.borrarMenor()}" update="@all" ajax="false"/>
                 <p:commandButton value="CambiarValores" action="#{arbolBinarioControlador.cambiarValores()}" update="@all" ajax="false"/>
-                <p:commandButton value="Ramas Mayor" action="#{arbolBinarioControlador.habilitarRamaMayor()}" update="@all" ajax="false"/>
+                <p:commandButton value="Cantidad de Nodos" action="#{arbolBinarioControlador.arbol.cantidadNodos()}" update="@all" ajax="false"/>
+                
                 
                 
                 
                 
             </p:panel>
         </h:form>
+        
+        <h:form>
+            <p:panel header="Cantidad de Nodos">                    
+            <p:dataTable  var="nodo" value="#{arbolBinarioControlador.arbol.cantidadNodos()}">
+                    <p:column headerText="La cantidad de Nodos que tiene el árbol son: ">
+                        <h:outputText value="#{nodo}" />
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+           </h:form>
+        
         <h:form>
             <p:panel header="Llenar árbol">
                 <p:inputTextarea required="true" cols="40" value="#{arbolBinarioControlador.datoscsv}"/>

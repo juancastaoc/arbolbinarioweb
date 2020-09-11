@@ -351,6 +351,10 @@ public class ArbolBinarioControlador implements Serializable {
         this.pintarArbol();
     }
      
+     public String CantidadNodos(){
+        return this.arbol.cantidadNodos();
+    }
+     
      
      public void habilitarRamaMayor(){
          try {
