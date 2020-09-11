@@ -40,8 +40,8 @@ public class ArbolBinarioControlador implements Serializable {
     private boolean verPreorden = false;
     private boolean verPostOrden = false;
     private boolean verNiveles = false;
-     private boolean verNivelesOrdenado = false;
-    
+    private boolean verNivelesOrdenado = false;
+    private boolean verhojas = false;
     
     
     
@@ -128,8 +128,13 @@ public class ArbolBinarioControlador implements Serializable {
         this.verNivelesOrdenado = verNivelesOrdenado;
     }
     
-    
-    
+    public boolean isVerhojas() {
+        return verhojas;
+    }
+
+    public void setVerhojas(boolean verhojas) {
+        this.verhojas = verhojas;
+    }
     
     
     
@@ -242,7 +247,19 @@ public class ArbolBinarioControlador implements Serializable {
         }
     }
     
-    
+         public void habilitarVistaHojas(){
+        try {
+            arbol.isLleno();
+            verhojas = true;
+            verNivelesOrdenado = false;
+            verNiveles = false;
+          
+
+        } catch (ArbolBinarioException ex) {
+            JsfUtil.addErrorMessage(ex.getMessage());
+
+        }
+    } 
          
          
          
