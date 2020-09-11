@@ -47,7 +47,14 @@ public class ArbolBinarioControlador implements Serializable {
     
     
     
-    
+    public boolean isVerRamaMayor() {
+        return verRamaMayor;
+    }
+
+    public void setVerRamaMayor(boolean verRamaMayor) {
+        this.verRamaMayor = verRamaMayor;
+    }
+    private boolean verRamaMayor = false;
     
     
 
@@ -344,7 +351,23 @@ public class ArbolBinarioControlador implements Serializable {
         this.pintarArbol();
     }
      
-         
+     
+     public void habilitarRamaMayor(){
+         try {
+            verRamaMayor = true;
+            verBalance = false;
+            verbuscar = false;
+            verhojas = false;
+            verNivelesOrdenado = false;
+            verNiveles = false;
+            verPostOrden = false;
+            verPreorden = false;
+            verInOrden = false;
+
+        } catch (Exception ex) {
+            JsfUtil.addErrorMessage(ex.getMessage());
+        }
+    }    
          
          
          

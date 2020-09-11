@@ -21,18 +21,18 @@
                 <p:commandButton value="InOrden" action="#{arbolBinarioControlador.habilitarInOrden()}" update="@all" ajax="false"/>
                 <p:commandButton value="PreOrden" action="#{arbolBinarioControlador.habilitarPreOrden()}" update="@all" ajax="false" />
                 <p:commandButton value="PostOrden" action="#{arbolBinarioControlador.habilitarPostOrden()}" update="@all" ajax="false" />
-                <p:commandButton value="PorNiveles" action="#{arbolBinarioControlador.habilitarVistaPorNiveles()}" update="@all" ajax="false" />
-                <p:commandButton value="NivelOrdenado" action="#{arbolBinarioControlador.habilitarVistaPorNivelesOrdenado()}" update="@all" ajax="false"/>
-                <p:commandButton value="HojasdelArbol" action="#{arbolBinarioControlador.habilitarVistaHojas()}" update="@all" ajax="false"/>
+                <p:commandButton value="Por Niveles" action="#{arbolBinarioControlador.habilitarVistaPorNiveles()}" update="@all" ajax="false" />
+                <p:commandButton value="Nivel Ordenado" action="#{arbolBinarioControlador.habilitarVistaPorNivelesOrdenado()}" update="@all" ajax="false"/>
+                <p:commandButton value="Hojas del Arbol" action="#{arbolBinarioControlador.habilitarVistaHojas()}" update="@all" ajax="false"/>
                 <p:commandButton value="buscar" action="#{arbolBinarioControlador.buscar()}" update="@all" ajax="false"/>
-                <p:commandButton value="buscarPadre" action="#{arbolBinarioControlador.buscarPadre()}" update="@all" ajax="false"/>
+                <p:commandButton value="buscar Padre" action="#{arbolBinarioControlador.buscarPadre()}" update="@all" ajax="false"/>
                 <p:commandButton value="borrar" action="#{arbolBinarioControlador.borrar()}" update="@all" ajax="false"/>
                 <p:commandButton value="Podar" action="#{arbolBinarioControlador.podarArbol()}" update="@all" ajax="false"/>
                 <p:commandButton value="Balance" action="#{arbolBinarioControlador.balance()}" update="@all" ajax="false"/>
-                <p:commandButton value="BorrarMayor" action="#{arbolBinarioControlador.borrarMayor()}" update="@all" ajax="false"/>
+                <p:commandButton value="Borrar Mayor" action="#{arbolBinarioControlador.borrarMayor()}" update="@all" ajax="false"/>
                 <p:commandButton value="BorrarMenor"  action="#{arbolBinarioControlador.borrarMenor()}" update="@all" ajax="false"/>
                 <p:commandButton value="CambiarValores" action="#{arbolBinarioControlador.cambiarValores()}" update="@all" ajax="false"/>
-                
+                <p:commandButton value="Ramas Mayor" action="#{arbolBinarioControlador.habilitarRamaMayor()}" update="@all" ajax="false"/>
                 
                 
                 
@@ -133,7 +133,14 @@
                 </p:dataTable>
              </p:panel>
             
-            
+            <p:panel header="Rama mayor: " rendered="#{arbolBinarioControlador.verRamaMayor}">
+                <p:dataTable   var="nodo" value="#{arbolBinarioControlador.arbol.ObtenerRamaMayor()}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{nodo}" />
+                    </p:column>
+
+                </p:dataTable>
+             </p:panel>
             
             
             
