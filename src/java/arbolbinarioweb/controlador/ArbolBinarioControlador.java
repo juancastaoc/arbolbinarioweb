@@ -40,7 +40,7 @@ public class ArbolBinarioControlador implements Serializable {
     private boolean verPreorden = false;
     private boolean verPostOrden = false;
     private boolean verNiveles = false;
-    
+     private boolean verNivelesOrdenado = false;
     
     
     
@@ -120,7 +120,13 @@ public class ArbolBinarioControlador implements Serializable {
         this.verNiveles = verNiveles;
     }
     
-    
+        public boolean isVerNivelesOrdenado() {
+        return verNivelesOrdenado;
+    }
+
+    public void setVerNivelesOrdenado(boolean verNivelesOrdenado) {
+        this.verNivelesOrdenado = verNivelesOrdenado;
+    }
     
     
     
@@ -223,9 +229,38 @@ public class ArbolBinarioControlador implements Serializable {
         }
     }
     
+         public void habilitarVistaPorNivelesOrdenado(){
+        try {
+            arbol.isLleno();
+            verNivelesOrdenado = true;
+            verNiveles = false;
+            verPostOrden = false;
+            
+        } catch (ArbolBinarioException ex) {
+            JsfUtil.addErrorMessage(ex.getMessage());
+
+        }
+    }
     
     
-    
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
     
     
     
