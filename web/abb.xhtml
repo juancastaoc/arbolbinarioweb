@@ -13,15 +13,17 @@
         <p:diagram id="pnlArbol" value="#{arbolBinarioControlador.model}" style="height:400px" styleClass="ui-widget-content" />
 
         <h:form>
-            <p:panel header="Panel Nuevo Nodo">
+                <p:panel header="Arboles binarios">
                 <p:outputLabel value="Dato:"/>
                 <p:inputText required="true" value="#{arbolBinarioControlador.dato}"/>
                 <p:commandButton ajax="false"  value="Agregar" action="#{arbolBinarioControlador.adicionarNodo()}"
                                  update="@all" />
                 <p:commandButton value="InOrden" action="#{arbolBinarioControlador.habilitarInOrden()}" update="@all" ajax="false"/>
+                <p:commandButton value="PreOrden" action="#{arbolBinarioControlador.habilitarPreOrden()}" update="@all" ajax="false" />
 
-
-
+                
+                
+                
             </p:panel>
         </h:form>
         <h:form>
@@ -44,17 +46,40 @@
 
             </p:panel>
         </h:form>
-        <h:panelGroup rendered="#{arbolBinarioControlador.verInOrden}">
-            <p:panel header="InOrden">
-                <p:dataTable var="nodo" value="#{arbolBinarioControlador.arbol.inOrden()}">
+        <h:panelGroup> 
+            
+     
+            <p:panel header="InOrden" rendered="#{arbolBinarioControlador.verInOrden}">
+                <p:dataTable  var="nodo" value="#{arbolBinarioControlador.arbol.inOrden()}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{nodo}" />
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+            
+            <p:panel header="PreOrden" rendered="#{arbolBinarioControlador.verPreorden}">
+                <p:dataTable   var="nodo" value="#{arbolBinarioControlador.arbol.preOrden()}">
                     <p:column headerText="Id">
                         <h:outputText value="#{nodo}" />
                     </p:column>
 
                 </p:dataTable>
+             </p:panel>
 
-            </p:panel>
-        </h:panelGroup>
+
+        
+        
+        
+        
+        
+            
+            
+            
+            
+        
+           </h:panelGroup>
+      
+        
         <p:diagram id="pnlArbolTerminados" value="#{arbolBinarioControlador.modelArbol2}" style="height:400px" styleClass="ui-widget-content" />
         
     </ui:define>

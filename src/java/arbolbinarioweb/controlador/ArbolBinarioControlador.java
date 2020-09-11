@@ -37,6 +37,18 @@ public class ArbolBinarioControlador implements Serializable {
     private ArbolBinario arbol = new ArbolBinario();
     private int dato;
     private boolean verInOrden = false;
+    private boolean verPreorden = false;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     private String datoscsv = "18,15,13,17,8,14,-8,10,59,28,80,78,90";
     private int terminado;
@@ -82,6 +94,37 @@ public class ArbolBinarioControlador implements Serializable {
         this.verInOrden = verInOrden;
     }
 
+    
+        public boolean isVerPreorden() {
+        return verPreorden;
+    }
+
+    public void setVerPreorden(boolean verPreorden) {
+        this.verPreorden = verPreorden;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public int getDato() {
         return dato;
     }
@@ -126,6 +169,37 @@ public class ArbolBinarioControlador implements Serializable {
         }
     }
 
+    public void habilitarPreOrden (){
+        try {
+            arbol.isLleno();
+            verPreorden = true;
+            verInOrden = false;
+        
+
+        } catch (ArbolBinarioException ex) {
+            JsfUtil.addErrorMessage(ex.getMessage());
+
+        }
+    } 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public DefaultDiagramModel getModel() {
         return model;
     }
