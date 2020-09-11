@@ -333,7 +333,10 @@ public class ArbolBinarioControlador implements Serializable {
         this.pintarArbol();
     }    
          
-         
+     public void borrarMenor(){
+        this.arbol.borrarMenor();
+        this.pintarArbol();
+    }    
          
          
          
