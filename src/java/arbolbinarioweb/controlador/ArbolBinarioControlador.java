@@ -43,6 +43,7 @@ public class ArbolBinarioControlador implements Serializable {
     private boolean verNivelesOrdenado = false;
     private boolean verhojas = false;
     private boolean verbuscar = false;
+    private boolean verBalance = false;
     
     
     
@@ -145,7 +146,13 @@ public class ArbolBinarioControlador implements Serializable {
         this.verbuscar = verbuscar;
     }
     
-    
+    public boolean isVerBalance() {
+        return verBalance;
+    }
+
+    public void setVerBalance(boolean verBalance) {
+        this.verBalance = verBalance;
+    }
     
     
     
@@ -292,9 +299,36 @@ public class ArbolBinarioControlador implements Serializable {
         return 0;
     }
          
+      public void borrar() {
+        
+        int x = this.dato;
+        System.out.println(arbol.borrar(x));
+        this.pintarArbol();
+    } 
+    public void podarArbol() {
+        arbol.podar();
+        this.pintarArbol();
+    }   
          
-         
-         
+    public void balance(){
+        try {
+            verBalance = true;
+            verbuscar = false;
+            verhojas = false;
+            verNivelesOrdenado = false;
+            verNiveles = false;
+            verPostOrden = false;
+            verPreorden = false;
+            verInOrden = false;
+                    
+
+        } catch (Exception ex) {
+            JsfUtil.addErrorMessage(ex.getMessage());
+        }
+            
+        
+        
+    }    
          
          
          

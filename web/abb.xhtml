@@ -26,6 +26,10 @@
                 <p:commandButton value="HojasdelArbol" action="#{arbolBinarioControlador.habilitarVistaHojas()}" update="@all" ajax="false"/>
                 <p:commandButton value="buscar" action="#{arbolBinarioControlador.buscar()}" update="@all" ajax="false"/>
                 <p:commandButton value="buscarPadre" action="#{arbolBinarioControlador.buscarPadre()}" update="@all" ajax="false"/>
+                <p:commandButton value="borrar" action="#{arbolBinarioControlador.borrar()}" update="@all" ajax="false"/>
+                <p:commandButton value="Podar" action="#{arbolBinarioControlador.podarArbol()}" update="@all" ajax="false"/>
+                <p:commandButton value="Balance" action="#{arbolBinarioControlador.balance()}" update="@all" ajax="false"/>
+                
                 
             </p:panel>
         </h:form>
@@ -114,7 +118,14 @@
                 </p:dataTable>
              </p:panel>
             
-        
+            <p:panel header="Balance: " rendered="#{arbolBinarioControlador.verBalance}">
+                <p:dataTable   var="nodo" value="#{arbolBinarioControlador.arbol.imprimirBalance()}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{nodo}" />
+                    </p:column>
+
+                </p:dataTable>
+             </p:panel>
             
             
             
