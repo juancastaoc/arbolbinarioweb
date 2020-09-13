@@ -58,7 +58,7 @@ public class ArbolBinarioControlador implements Serializable {
     
     
 
-    private String datoscsv = "18,15,13,17,8,14,0,10,59,28,80,78,90";
+    private String datoscsv = "18,15,13,17,8,14,-8,10,59,28,80,78,90";
     private int terminado;
     private ArbolBinario arbolTerminados = new ArbolBinario();
 
@@ -350,6 +350,16 @@ public class ArbolBinarioControlador implements Serializable {
         this.arbol.cambiar();
         this.pintarArbol();
     }
+     
+     public void multiplicarArbol(int multiplicador){
+         this.arbol.multiplicar(multiplicador);
+         this.pintarArbol();
+     }
+     
+     public void BorraNivel(int nivel){
+         this.arbol.borrarNivel(nivel);
+         this.pintarArbol();
+     }
      
      public String CantidadNodos(){
         return this.arbol.cantidadNodos();

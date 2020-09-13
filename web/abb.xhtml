@@ -30,8 +30,10 @@
                 <p:commandButton value="Podar" action="#{arbolBinarioControlador.podarArbol()}" update="@all" ajax="false"/>
                 <p:commandButton value="Balance" action="#{arbolBinarioControlador.balance()}" update="@all" ajax="false"/>
                 <p:commandButton value="Borrar Mayor" action="#{arbolBinarioControlador.borrarMayor()}" update="@all" ajax="false"/>
-                <p:commandButton value="BorrarMenor"  action="#{arbolBinarioControlador.borrarMenor()}" update="@all" ajax="false"/>
-                <p:commandButton value="CambiarValores" action="#{arbolBinarioControlador.cambiarValores()}" update="@all" ajax="false"/>
+                <p:commandButton value="Borrar Menor"  action="#{arbolBinarioControlador.borrarMenor()}" update="@all" ajax="false"/>
+                <p:commandButton value="Cambiar Valores" action="#{arbolBinarioControlador.cambiarValores()}" update="@all" ajax="false"/>
+                <p:commandButton value="Multiplicar Valores" action="#{arbolBinarioControlador.multiplicarValores()}" update="@all" ajax="false"/>
+                
                 
                 
                 
@@ -82,6 +84,25 @@
 
             </p:panel>
         </h:form>
+        
+        <h:form id="multiplicacion">
+            <p:panel header="multiplicar">
+                <p:inputTextarea required="true" cols="20" id="numero"/>
+                <p:commandButton value="Multiplicar Arbol" action="#{arbolBinarioControlador.multiplicarArbol(param['multiplicacion:numero'])}"
+                                 update="@all" ajax="false"/>
+
+            </p:panel>
+        </h:form>
+        
+        <h:form id="borrarNivel">
+            <p:panel header="Borrar nivel">
+                <p:inputTextarea required="true" cols="20" id="nivel"/>
+                <p:commandButton value="Borrar nivel" action="#{arbolBinarioControlador.BorraNivel(param['borrarNivel:nivel'])}"
+                                 update="@all" ajax="false"/>
+
+            </p:panel>
+        </h:form>
+        
         <h:form>
 
             <p:panel header="Terminados en">
