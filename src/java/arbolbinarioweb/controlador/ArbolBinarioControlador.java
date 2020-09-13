@@ -15,6 +15,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.primefaces.model.diagram.Connection;
 import org.primefaces.model.diagram.DefaultDiagramModel;
 import org.primefaces.model.diagram.Element;
@@ -357,8 +359,15 @@ public class ArbolBinarioControlador implements Serializable {
      }
      
      public void BorraNivel(int nivel){
-         this.arbol.borrarNivel(nivel);
-         this.pintarArbol();
+         try {
+             this.arbol.borrarNivel(nivel);
+            this.pintarArbol();
+         }catch(Exception e){
+             
+         }
+             
+         
+         
      }
      
      public String CantidadNodos(){
@@ -369,11 +378,15 @@ public class ArbolBinarioControlador implements Serializable {
         return this.arbol.cantidadNodosHoja();
     }
           
-          public String menorValor(){
+          public String menorValor() throws ArbolBinarioException{
+              if (this.arbol == null){
+                  return "0";
+              }
+              else
         return this.arbol.menorValor();
     }
      
-          public String mayorValor(){
+          public String mayorValor() throws ArbolBinarioException{
         return this.arbol.mayorValor();
     }
      

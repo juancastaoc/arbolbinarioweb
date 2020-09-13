@@ -95,7 +95,7 @@
         </h:form>
         
         <h:form id="borrarNivel">
-            <p:panel header="Borrar nivel">
+                <p:panel header="Borrar nivel">
                 <p:inputTextarea required="true" cols="20" id="nivel"/>
                 <p:commandButton value="Borrar nivel" action="#{arbolBinarioControlador.BorraNivel(param['borrarNivel:nivel'])}"
                                  update="@all" ajax="false"/>
