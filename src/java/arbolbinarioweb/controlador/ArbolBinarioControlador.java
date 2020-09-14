@@ -28,6 +28,8 @@ import org.primefaces.model.diagram.endpoint.EndPointAnchor;
 /**
  *
  * @author carloaiza
+ * @author giovannifranco
+ * @author juancastno
  */
 @Named(value = "arbolBinarioControlador")
 @SessionScoped
@@ -360,10 +362,13 @@ public class ArbolBinarioControlador implements Serializable {
      
      public void BorraNivel(int nivel){
          try {
-             this.arbol.borrarNivel(nivel);
-            this.pintarArbol();
-         }catch(Exception e){
              
+             this.arbol.borrarNivel(nivel);
+             JsfUtil.addSuccessMessage("El nivel ha sido eliminado");
+            this.pintarArbol();         
+             
+         }catch(Exception e){
+             JsfUtil.addSuccessMessage("El nivel ingresado no esta en el arbol ");
          }
              
          
@@ -405,24 +410,12 @@ public class ArbolBinarioControlador implements Serializable {
         } catch (Exception ex) {
             JsfUtil.addErrorMessage(ex.getMessage());
         }
-    }    
-         
-         
-         
-         
-         
-         
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    }                   
+                
+       
+               
+             
+        
     public DefaultDiagramModel getModel() {
         return model;
     }
@@ -447,7 +440,8 @@ public class ArbolBinarioControlador implements Serializable {
     private void pintarArbol(Nodo reco, DefaultDiagramModel model, Element padre, int x, int y) {
 
         if (reco != null) {
-            Element elementHijo = new Element(reco.getDato());
+            Element elementHijo = new Element(reco.getDato() 
+                    + " " + "(" + "G:" + reco.obtenerGradoNodo() + " H:" + reco.obtenerAlturaNodo()+")");
 
             elementHijo.setX(String.valueOf(x) + "em");
             elementHijo.setY(String.valueOf(y) + "em");
