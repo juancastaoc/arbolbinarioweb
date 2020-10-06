@@ -48,7 +48,8 @@ public class ArbolBinarioControlador implements Serializable {
     private boolean verhojas = false;
     private boolean verbuscar = false;
     private boolean verBalance = false;
-    
+    private String verSumanNodo;
+    private DefaultDiagramModel modelsuma;
     
     
     public boolean isVerRamaMayor() {
@@ -187,9 +188,76 @@ public class ArbolBinarioControlador implements Serializable {
         this.arbol = arbol;
     }
 
+    
+    public String getVerSumanNodo() {
+        return verSumanNodo;
+    }
+private void setVerSumanNodo(String verSumanNodo) {
+        this.verSumanNodo = verSumanNodo;
+    }
+    
+    public DefaultDiagramModel getModelSuma() {
+        return modelsuma;
+    }
+    
+    
+    
+    
+    
+    
     /**
      * Creates a new instance of ArbolBinarioControlador
      */
+    public void pintarArbolSuma(Nodo nodo) {
+        modelsuma = new DefaultDiagramModel();
+        modelsuma.setMaxConnections(-1);
+        modelsuma.setConnectionsDetachable(false);
+        StraightConnector connector = new StraightConnector();
+        connector.setPaintStyle("{strokeStyle:'#404a4e', lineWidth:2}");
+        connector.setHoverPaintStyle("{strokeStyle:'#20282b'}");
+        modelsuma.setDefaultConnector(connector);
+        pintarArbol(nodo, modelsuma, null, 30, 0);
+
+    }
+    
+    
+    // Método que 
+    
+    public void sumarArbolNodo(String dato) throws ArbolBinarioException{
+        try {
+            int datoEntero=Integer.parseInt(dato);
+            if(arbol.getRaiz()==null)
+                throw new ArbolBinarioException("El arbol es vacio");
+            Nodo nodo = arbol.buscarNodoArbol(datoEntero);
+            int suma = sumaNodo(nodo);
+            String mensaje = "";
+            mensaje += "El nodo " + nodo.getDato() + " la suma de su arbol es = "+ suma;
+            setVerSumanNodo(mensaje);
+pintarArbolSuma(nodo);
+        } catch (NumberFormatException e) {
+            JsfUtil.addSuccessMessage(String.valueOf("El dato debe ser un numero entero"));
+        }catch(ArbolBinarioException e){
+            JsfUtil.addSuccessMessage(String.valueOf(e));
+        }
+    }
+    
+    // Método que me suma el nodo por izquierda y por derecho retornando suma 
+    private int sumaNodo(Nodo nodo){
+        int suma = nodo.getDato();
+        if(nodo.getIzquierda()!=null)
+            suma+=sumaNodo(nodo.getIzquierda());
+        if(nodo.getDerecha()!=null)
+            suma+=sumaNodo(nodo.getDerecha());
+        return suma;
+    }  
+    
+    
+    
+    
+    
+    
+    
+    
     public ArbolBinarioControlador() {
 
     }
@@ -548,3 +616,8 @@ public class ArbolBinarioControlador implements Serializable {
     }
 
 }
+
+
+
+
+

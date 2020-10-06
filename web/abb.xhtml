@@ -219,9 +219,16 @@
             
             
             
-            
-            
-            
+            <h:form id="sumarNodo">
+                <p:panel header="sumar nodo">
+                <p:inputTextarea required="true" cols="20" id="dato"/>
+                <p:commandButton value="sumar nodo" action="#{arbolBinarioControlador.sumarArbolNodo(param['sumarNodo:dato'])}"
+                                 update="@all" ajax="false"/>
+                <h:outputText value="#{arbolBinarioControlador.verSumanNodo}"/>
+
+            </p:panel>
+<p:diagram id="pnlArbolSuma" value="#{arbolBinarioControlador.modelSuma}" style="height:400px" styleClass="ui-widget-content" />
+        </h:form>
             
         
            </h:panelGroup>
