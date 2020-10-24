@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import org.primefaces.model.diagram.Connection;
 import org.primefaces.model.diagram.DefaultDiagramModel;
 import org.primefaces.model.diagram.Element;
@@ -30,6 +31,7 @@ import org.primefaces.model.diagram.endpoint.EndPointAnchor;
  */
 @Named(value = "arbolSumaControlador")
 @SessionScoped
+
 public class ArbolSumaControlador implements Serializable {
 
     private int numero;
@@ -139,6 +141,19 @@ public class ArbolSumaControlador implements Serializable {
         
         //Short.valueOf(id.replaceAll("mnuForm", ""));
 
+    }
+    
+    public void pasarArbol(arbolbinario.modelo.ArbolBinario abb) throws ArbolBinarioException{
+        llenarArbolSuma(abb.getRaiz());
+        pintarArbol();
+    }
+    
+    private void llenarArbolSuma(arbolbinario.modelo.Nodo nodo) throws ArbolBinarioException{
+        if(nodo!=null){
+            arbol.adicionarNodo(new Dato(nodo.getDato()), arbol.getRaiz());
+            llenarArbolSuma(nodo.getIzquierda());
+            llenarArbolSuma(nodo.getDerecha());
+        }
     }
 
    

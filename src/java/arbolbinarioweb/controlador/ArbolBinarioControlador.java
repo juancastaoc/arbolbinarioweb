@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import org.primefaces.model.diagram.Connection;
 import org.primefaces.model.diagram.DefaultDiagramModel;
 import org.primefaces.model.diagram.Element;
@@ -50,6 +51,9 @@ public class ArbolBinarioControlador implements Serializable {
     private boolean verBalance = false;
     private String verSumanNodo;
     private DefaultDiagramModel modelsuma;
+    
+    @Inject
+    private ArbolSumaControlador arbolSumaControlador;
 
     
     
@@ -253,7 +257,9 @@ pintarArbolSuma(nodo);
         return suma;
     }  
     
-    
+    public void pasarArbolSuma() throws ArbolBinarioException{
+        arbolSumaControlador.pasarArbol(arbol);
+    }
     
     
     

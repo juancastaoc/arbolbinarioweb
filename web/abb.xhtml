@@ -137,10 +137,10 @@
         
         <h:form id="sumarNodo">
                 <p:panel header="Obtener suma de un nodo">
-                <p:inputTextarea required="true" cols="20" id="dato"/>
+                <p:inputTextarea required="false" cols="20" id="dato"/>
                 <p:commandButton value="Obtener suma" action="#{arbolBinarioControlador.sumarArbolNodo(param['sumarNodo:dato'])}"
                                  update="@all" ajax="false"/>
-                <p:commandButton value="Obtener arbol de sumas en ABB Suma" action="#{arbolBinarioControlador.sumarArbolNodo(param['sumarNodo:dato'])}"
+                <p:commandButton value="Obtener arbol de sumas en ABB Suma" action="#{arbolBinarioControlador.pasarArbolSuma()}"
                                  update="@all" ajax="false"/>
                 <p:commandButton value="Comunicación entre Beans" action="mnuSuma"/> 
                 
