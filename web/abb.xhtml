@@ -3,7 +3,9 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./templatemain.xhtml"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml">
+    
     <ui:define name="head">
         
         <style type="text/css">
@@ -132,6 +134,25 @@
 
             </p:panel>
         </h:form>
+        
+        <h:form id="sumarNodo">
+                <p:panel header="Obtener suma de un nodo">
+                <p:inputTextarea required="true" cols="20" id="dato"/>
+                <p:commandButton value="Obtener suma" action="#{arbolBinarioControlador.sumarArbolNodo(param['sumarNodo:dato'])}"
+                                 update="@all" ajax="false"/>
+                <p:commandButton value="Obtener arbol de sumas en ABB Suma" action="#{arbolBinarioControlador.sumarArbolNodo(param['sumarNodo:dato'])}"
+                                 update="@all" ajax="false"/>
+                <p:commandButton value="Comunicación entre Beans" action="mnuSuma"/> 
+                
+                <h:outputText value="#{arbolBinarioControlador.verSumanNodo}"/>
+
+            </p:panel>
+            
+            <p:diagram id="pnlArbolSuma" value="#{arbolBinarioControlador.modelSuma}" style="height:400px" styleClass="ui-widget-content" />
+        </h:form>
+                        
+                
+        
         <h:panelGroup> 
             
      
@@ -217,9 +238,8 @@
             
             
             
-            
-            
-            
+          
+                     
             
         
            </h:panelGroup>
