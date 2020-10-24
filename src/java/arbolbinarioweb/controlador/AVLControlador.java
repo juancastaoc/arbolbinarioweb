@@ -22,6 +22,8 @@ import org.primefaces.model.diagram.endpoint.EndPointAnchor;
 /**
  *
  * @author carloaiza
+ * @author giovanni franco
+ * @author juan castaño
  * 
  */
 @Named(value = "avlControlador")
