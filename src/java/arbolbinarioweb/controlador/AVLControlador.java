@@ -22,6 +22,9 @@ import org.primefaces.model.diagram.endpoint.EndPointAnchor;
 /**
  *
  * @author carloaiza
+ * @author giovanni franco
+ * @author juan castaño
+ * 
  */
 @Named(value = "avlControlador")
 @SessionScoped
@@ -327,6 +330,7 @@ public class AVLControlador implements Serializable {
         } catch (ArbolBinarioException ex) {
             JsfUtil.addErrorMessage(ex.getMessage());
 
+
         }
     }
     
@@ -412,6 +416,13 @@ public class AVLControlador implements Serializable {
         this.arbol.cambiar();
         this.pintarArbol();
     }
+     
+     
     
 }
 
+
+     
+    
+    
+         
