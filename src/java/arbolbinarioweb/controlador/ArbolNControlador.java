@@ -15,6 +15,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import org.primefaces.model.diagram.Connection;
 import org.primefaces.model.diagram.DefaultDiagramModel;
 import org.primefaces.model.diagram.Element;
@@ -25,7 +26,6 @@ import org.primefaces.model.diagram.endpoint.EndPointAnchor;
 /**
  *
  * @author giovanni
- * @author juancastaño
  */
 @Named(value = "arbolNControlador")
 @SessionScoped
@@ -185,19 +185,7 @@ public class ArbolNControlador implements Serializable {
         this.idJefe = idJefe;
     }
 
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    
 
     /**
      * @return the ciudad
@@ -259,6 +247,7 @@ public class ArbolNControlador implements Serializable {
     private String antiguaDependencia;
     private List<String> listaPromedios;
     private DefaultDiagramModel model;
+    private String idSeleccionado; // Atributo distancia. Esta variable va a estar viva todo el tiempo que este beam (arbolSumaControlador) este vivo.
 
     /**
      * Creates a new instance of ArbolNControlador
@@ -280,6 +269,30 @@ public class ArbolNControlador implements Serializable {
     public void setId(String id) {
         this.id = id;
     }
+    
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+
+    public String getIdSeleccionado() {
+        return idSeleccionado;
+    }
+
+    public void setIdSeleccionado(String idSeleccionado) {
+        this.idSeleccionado = idSeleccionado;
+    }
+    
 
     public DefaultDiagramModel getModel() {
         return model;
@@ -351,6 +364,8 @@ public class ArbolNControlador implements Serializable {
             String []dependecias = arbol.cambiarDependencia(id,dependecia);
             nuevaDependencia = dependecias[1];
             antiguaDependencia = dependecias[0];
+            dependencia = nuevaDependencia;
+            pintarArbol();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(String.valueOf(e));
         }
@@ -387,11 +402,12 @@ public class ArbolNControlador implements Serializable {
         if (reco != null) {
             Element elementHijo;
             if(reco.getDato()==null){
-                elementHijo = new Element("C: " + "Vacante" + " (N: )");
+                elementHijo = new Element("CC: ");
             }
             else{
-                 elementHijo = new Element("C: " + reco.getDato().getId() + " (N: )");
+                 elementHijo = new Element("CC: " + reco.getDato().getId());
             }
+            elementHijo.setId(String.valueOf(reco.getDato().getId()));
             elementHijo.setX(String.valueOf(x) + "em");
             elementHijo.setY(String.valueOf(y) + "em");
             if (padre != null) {
@@ -411,6 +427,17 @@ public class ArbolNControlador implements Serializable {
                 }
             }
         }
+    }
+    
+    public void onClickRight() {
+        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("elementId");
+        JsfUtil.addSuccessMessage(id);
+        System.out.println(id.replaceAll("frmArbolN:diagrama-", ""));
+        //idSeleccionado = String.valueOf(id.replaceAll("frmArbolN:diagrama-", ""));
+        //nombre = String.valueOf(id.replaceAll("frmArbolN:diagrama-", ""));
+        
+        //Short.valueOf(id.replaceAll("mnuForm", ""));
+
     }
     
 }

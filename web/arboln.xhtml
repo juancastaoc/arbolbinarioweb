@@ -7,136 +7,185 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:define name="head">
-        
-        
-    <style type="text/css">
-    .ui-diagram-element {  
-        width:7em; 
-        height:3em;     
-        line-height:3em;
-        text-align: center;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
-        border-radius: 4px;
-        border: 1px solid #3333FF;
-        background-color: #70CF76;
-        color: #0728F3;
-    }
-    .ui-diagram-element:hover{
-        background-color: orange;
-    }
-    </style>
-    </ui:define>
-    <ui:define name="content"> 
-        <p:growl id="grwlErrores"/>
-            <p:panel id="pnlArbolN-ario" header="Arbol N-ario">
-                <p:diagram value="#{arbolNControlador.model}" style="height:400px" />
+    <ui:define name="content">
+        <h:form id="frmArbolN">
+
+            <style type="text/css">
+                .ui-diagram-element {  
+                    width:7em; 
+                    height:3em;     
+                    line-height:3em;
+                    text-align: center;
+                    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+                    border-radius: 4px;
+                    border: 1px solid #3333FF;
+                    background-color: #70CF76;
+                    color: #0728F3;
+                }
+                .ui-diagram-element:hover{
+                    background-color: orange;
+                }
+            </style>
+
+            <p:growl id="grwlErrores"/>
+            <p:panel id="pnlArbolN-ario" header="Arbol N">
+                <p:diagram id="diagrama" value="#{arbolNControlador.model}" style="height:400px" />
             </p:panel>
-        <h:form>
-            <p:panel header="Nuevo empleado" >
-                <p:outputLabel value="id :"/>
-                <p:inputText required="true" value="#{arbolNControlador.id}"/>
-                <p:outputLabel value="nombre :"/>
-                <p:inputText required="true" value="#{arbolNControlador.nombre}"/>
-                <p:outputLabel value="ciudad :"/>
-                <p:inputText required="true" value="#{arbolNControlador.ciudad}"/>
-                <p:outputLabel value="dependecia :"/>
-                <p:inputText required="true" value="#{arbolNControlador.dependencia}"/>
-                <p:outputLabel value="salario :"/>
-                <p:inputText required="true" value="#{arbolNControlador.salario}"/>
-                <p:outputLabel value="id del jefe directo :"/>
-                <p:inputText required="true" value="#{arbolNControlador.idJefe}"/>
-                <p:outputLabel value="edad :"/>
-                <p:inputText required="true" value="#{arbolNControlador.edad}"/>
-                <p:outputLabel value="genero :"/>
-                <h:selectOneMenu value = "#{arbolNControlador.genero}"> 
-                    <f:selectItem itemValue = "hombre" itemLabel = "Hombre" /> 
-                    <f:selectItem itemValue = "mujer" itemLabel = "Mujer" /> 
-                </h:selectOneMenu>
-                <p:outputLabel value="tele trabajo :"/>
-                <h:selectOneMenu value = "#{arbolNControlador.teletrabajo}"> 
-                    <f:selectItem itemValue = "si" itemLabel = "Si" /> 
-                    <f:selectItem itemValue = "no" itemLabel = "No" /> 
-                </h:selectOneMenu> 
-                <p:commandButton value="Agregar" action="#{arbolNControlador.adicionarNodo()}" update="@all" ajax="false"/>
-            </p:panel>
-        </h:form>    
-        <h:form id="nomina">
-            <p:panel header="Salario empleados de un jefe" >
-                <p:outputLabel value="id jefe:"/>
-                <p:inputText required="true" id="IdSalarioGrupo"/>
-                <p:commandButton value="Calcular nomina" action="#{arbolNControlador.totalNomina(param['nomina:IdSalarioGrupo'])}" update="@all" ajax="false"/>
-                <p:outputLabel value="#{arbolNControlador.idJefeDeLaNomina}"/>
-            </p:panel>
-        </h:form>
-        <h:form id="empleadosCiudad">
-                <p:panel header="numeros de empleados dados una ciudad" >
-                    <p:outputLabel value="ciudad:"/>
+
+            <p:contextMenu id="mnuDiagramaN" for="diagrama" targetFilter=".ui-diagram-element">
+                <p:menuitem value="Ver datos del empleado" update="pnlId" oncomplete="PF('digNum').show();"/>
+            </p:contextMenu>
+
+            <p:dialog id="modalId" widgetVar="digNum" modal="true" height="100" closeOnEscape="true">
+                <p:panel id="pnlId" header="Información del empleado:">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Cédula: "/>
+                        <h:outputText value="#{arbolNControlador.id}"/>
+                        <h:outputText value="Nombre: "/>
+                        <h:outputText value="#{arbolNControlador.nombre}"/>
+                        <h:outputText value="Ciudad: "/>
+                        <h:outputText value="#{arbolNControlador.ciudad}"/>
+                        <h:outputText value="Dependencia: "/>
+                        <h:outputText value="#{arbolNControlador.dependencia}"/>
+                        <h:outputText value="Salario: "/>
+                        <h:outputText value="#{arbolNControlador.salario}"/>
+                        <h:outputText value="Id jefe inmediato: "/>
+                        <h:outputText value="#{arbolNControlador.idJefe}"/>
+                        <h:outputText value="Edad: "/>
+                        <h:outputText value="#{arbolNControlador.edad}"/>
+                        <h:outputText value="Género: "/>
+                        <h:outputText value="#{arbolNControlador.genero}"/>
+                        <h:outputText value="Teletrabajo: "/>
+                        <h:outputText value="#{arbolNControlador.teletrabajo}"/>
+                    </h:panelGrid>
+                    
+                </p:panel>
+            </p:dialog>
+
+            <p:remoteCommand name="elementClickRight" actionListener="#{arbolNControlador.onClickRight()}">
+
+            </p:remoteCommand>
+
+            <script>
+                $(document).ready(function () {
+                    $('.ui-diagram > .ui-diagram-element').mousedown(function (info) {
+                        if (info.which === 3) {
+                            elementClickRight([{
+                                    name: 'elementId',
+                                    value: info.target.id
+                                }]);
+                        }
+                    });
+                });
+            </script>
+
+            <h:form>
+                <p:panel header="Nuevo empleado" >
+                    <p:outputLabel value="Id :"/>
+                    <p:inputText required="true" value="#{arbolNControlador.id}"/>
+                    <p:outputLabel value="Nombre :"/>
+                    <p:inputText required="true" value="#{arbolNControlador.nombre}"/>
+                    <p:outputLabel value="Ciudad :"/>
+                    <p:inputText required="true" value="#{arbolNControlador.ciudad}"/>
+                    <p:outputLabel value="Dependecia :"/>
+                    <p:inputText required="true" value="#{arbolNControlador.dependencia}"/>
+                    <p:outputLabel value="Salario :"/>
+                    <p:inputText required="true" value="#{arbolNControlador.salario}"/>
+                    <p:outputLabel value="Id del jefe directo :"/>
+                    <p:inputText required="true" value="#{arbolNControlador.idJefe}"/>
+                    <p:outputLabel value="Edad :"/>
+                    <p:inputText required="true" value="#{arbolNControlador.edad}"/>
+                    <p:outputLabel value="Género :"/>
+                    <h:selectOneMenu value = "#{arbolNControlador.genero}"> 
+                        <f:selectItem itemValue = "hombre" itemLabel = "Hombre" /> 
+                        <f:selectItem itemValue = "mujer" itemLabel = "Mujer" /> 
+                    </h:selectOneMenu>
+                    <p:outputLabel value="Tele trabajo :"/>
+                    <h:selectOneMenu value = "#{arbolNControlador.teletrabajo}"> 
+                        <f:selectItem itemValue = "si" itemLabel = "Si" /> 
+                        <f:selectItem itemValue = "no" itemLabel = "No" /> 
+                    </h:selectOneMenu> 
+                    <p:commandButton value="Agregar" action="#{arbolNControlador.adicionarNodo()}" update="@all" ajax="false"/>
+                </p:panel>
+            </h:form>  
+            </h:form>
+            <h:form id="nomina">
+                <p:panel header="Salario empleados de un jefe" >
+                    <p:outputLabel value="Id jefe:"/>
+                    <p:inputText required="true" id="IdSalarioGrupo"/>
+                    <p:commandButton value="Calcular nómina" action="#{arbolNControlador.totalNomina(param['nomina:IdSalarioGrupo'])}" update="@all" ajax="false"/>
+                    <p:outputLabel value="#{arbolNControlador.idJefeDeLaNomina}"/>
+                </p:panel>
+            </h:form>
+            <h:form id="empleadosCiudad">
+                <p:panel header="Número de empleados por ciudad" >
+                    <p:outputLabel value="Ciudad:"/>
                     <p:inputText required="true" id="ciudad"/>
-                    <p:commandButton value="ver empleados" action="#{arbolNControlador.empleadosCiudad(param['empleadosCiudad:ciudad'])}" update="@all" ajax="false"/>
+                    <p:commandButton value="Ver empleados" action="#{arbolNControlador.empleadosCiudad(param['empleadosCiudad:ciudad'])}" update="@all" ajax="false"/>
                     <p:dataTable   var="nodo" value="#{arbolNControlador.listaEmpleadosCiudad}">
-                        <p:column headerText="nombre">
+                        <p:column headerText="Nombre">
                             <h:outputText value="#{nodo}" />
                         </p:column>
                     </p:dataTable>
                 </p:panel>
-        </h:form>
-         <h:form id="reporteGenero">
-                <p:panel header="reporte por genero" >
-                    <p:outputLabel value="id del jefe:"/>
+            </h:form>
+            <h:form id="reporteGenero">
+                <p:panel header="Reporte por genero" >
+                    <p:outputLabel value="Id del jefe:"/>
                     <p:inputText required="true" id="jefe"/>
-                    <p:commandButton value="ver reporte" action="#{arbolNControlador.reporteGenero(param['reporteGenero:jefe'])}" update="@all" ajax="false"/>
+                    <p:commandButton value="Ver reporte" action="#{arbolNControlador.reporteGenero(param['reporteGenero:jefe'])}" update="@all" ajax="false"/>
                     <p:dataTable   var="nodo" value="#{arbolNControlador.listaGenero}">
-                        <p:column headerText="reporte">
+                        <p:column headerText="Reporte">
                             <h:outputText value="#{nodo}" />
                         </p:column>
                     </p:dataTable>
                 </p:panel>
-        </h:form>
-        <h:form id="ciudadEmpleado">
-            <p:panel header="ciudad donde trabaja un empleado" >
-                <p:outputLabel value="id jefe:"/>
-                <p:inputText required="true" id="ciudad"/>
-                <p:commandButton value="Ver ciudad" action="#{arbolNControlador.encontrarCiudad(param['ciudadEmpleado:ciudad'])}" update="@all" ajax="false"/>
-                <p:outputLabel value="#{arbolNControlador.ciudadTrabajador}"/>
-            </p:panel>
-        </h:form>
-        <h:form id="cambioDependencia">
-            <p:panel header="cambiar dependencia" >
-                <p:outputLabel value="id del empleado:"/>
-                <p:inputText required="true" id="empleado"/>
-                <p:outputLabel value="nueva dependencia:"/>
-                <p:inputText required="true" id="dependencia"/>
-                <p:commandButton value="cambiar dependencia" action="#{arbolNControlador.cambiarDependencia(param['cambioDependencia:empleado'],param['cambioDependencia:dependencia'])}" update="@all" ajax="false"/>
-                <p:outputLabel value="Antigua dependencia:"/>
-                <p:outputLabel value="#{arbolNControlador.antiguaDependencia}"/>
-                <p:outputLabel value="Nueva dependencia:"/>
-                <p:outputLabel value="#{arbolNControlador.nuevaDependencia}"/>
-            </p:panel>
-        </h:form>
-         <h:form id="despedir">
-            <p:panel header="despedir un empleado" >
-                <p:outputLabel value="id del empleado:"/>
-                <p:inputText required="true" id="empleado"/>
-                <p:commandButton value="despedir" action="#{arbolNControlador.despedir(param['despedir:empleado'])}" update="@all" ajax="false"/>
-            </p:panel>
-        </h:form>
-        <h:form id="ascender">
-            <p:panel header="ascender un empleado" >
-                <p:outputLabel value="id del empleado:"/>
-                <p:inputText required="true" id="empleado"/>
-                <p:commandButton value="ascender" action="#{arbolNControlador.ascender(param['ascender:empleado'])}" update="@all" ajax="false"/>
-            </p:panel>
-        </h:form>
-        <h:form id="promedio">
-                <p:panel header="reporte de edad por genero" >
-                    <p:commandButton value="ver reporte" action="#{arbolNControlador.promedioEdadPorGenero()}" update="@all" ajax="false"/>
+            </h:form>
+            <h:form id="ciudadEmpleado">
+                <p:panel header="Ciudad donde trabaja un empleado" >
+                    <p:outputLabel value="Id empleado:"/>
+                    <p:inputText required="true" id="ciudad"/>
+                    <p:commandButton value="Ver ciudad" action="#{arbolNControlador.encontrarCiudad(param['ciudadEmpleado:ciudad'])}" update="@all" ajax="false"/>
+                    <p:outputLabel value="#{arbolNControlador.ciudadTrabajador}"/>
+                </p:panel>
+            </h:form>
+            <h:form id="cambioDependencia">
+                <p:panel header="Cambiar dependencia" >
+                    <p:outputLabel value="Id del empleado:"/>
+                    <p:inputText required="true" id="empleado"/>
+                    <p:outputLabel value="Nueva dependencia:"/>
+                    <p:inputText required="true" id="dependencia"/>
+                    <p:commandButton value="Cambiar dependencia" action="#{arbolNControlador.cambiarDependencia(param['cambioDependencia:empleado'],param['cambioDependencia:dependencia'])}" update="@all" ajax="false"/>
+                    <p:outputLabel value="Antigua dependencia: "/>
+                    <p:outputLabel value="#{arbolNControlador.antiguaDependencia}"/>
+                    <br> </br>
+                    <p:outputLabel value="Nueva dependencia:"/>
+                    <p:outputLabel value="#{arbolNControlador.nuevaDependencia}"/>
+                </p:panel>
+            </h:form>
+            <h:form id="despedir">
+                <p:panel header="Despedir un empleado" >
+                    <p:outputLabel value="Id del empleado:"/>
+                    <p:inputText required="true" id="empleado"/>
+                    <p:commandButton value="Despedir" action="#{arbolNControlador.despedir(param['despedir:empleado'])}" update="@all" ajax="false"/>
+                </p:panel>
+            </h:form>
+            <h:form id="ascender">
+                <p:panel header="Ascender un empleado" >
+                    <p:outputLabel value="Id del empleado:"/>
+                    <p:inputText required="true" id="empleado"/>
+                    <p:commandButton value="Ascender" action="#{arbolNControlador.ascender(param['ascender:empleado'])}" update="@all" ajax="false"/>
+                </p:panel>
+            </h:form>
+            <h:form id="promedio">
+                <p:panel header="Reporte de edad por género" >
+                    <p:commandButton value="Ver reporte" action="#{arbolNControlador.promedioEdadPorGenero()}" update="@all" ajax="false"/>
                     <p:dataTable   var="nodo" value="#{arbolNControlador.listaPromedios}">
-                        <p:column headerText="reporte">
+                        <p:column headerText="Reporte">
                             <h:outputText value="#{nodo}" />
                         </p:column>
                     </p:dataTable>
                 </p:panel>
-        </h:form>
+            </h:form>
     </ui:define>
 </ui:composition>
