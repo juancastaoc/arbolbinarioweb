@@ -49,7 +49,7 @@ public class ArbolSumaControlador implements Serializable {
     //Método PostConstrut para inicializar el arbol 
     @PostConstruct
     private void inicializar() {
-        arbol = new ArbolBinario(); //aca instanciamos
+        
         textoHeader = "Arbol sumatoria +";
     }
 
@@ -144,6 +144,7 @@ public class ArbolSumaControlador implements Serializable {
     }
     
     public void pasarArbol(arbolbinario.modelo.ArbolBinario abb) throws ArbolBinarioException{
+        arbol = new ArbolBinario(); //aca instanciamos
         llenarArbolSuma(abb.getRaiz());
         pintarArbol();
     }

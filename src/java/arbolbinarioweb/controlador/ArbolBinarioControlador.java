@@ -9,6 +9,7 @@ import arbolbinario.modelo.ArbolBinario;
 import arbolbinario.modelo.Nodo;
 import arbolbinario.modelo.excepciones.ArbolBinarioException;
 import arbolbinarioweb.controlador.util.JsfUtil;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -257,8 +258,10 @@ pintarArbolSuma(nodo);
         return suma;
     }  
     
-    public void pasarArbolSuma() throws ArbolBinarioException{
+    public void pasarArbolSuma() throws ArbolBinarioException, IOException {
         arbolSumaControlador.pasarArbol(arbol);
+        FacesContext contex = FacesContext.getCurrentInstance();
+        contex.getExternalContext().redirect("abbsuma.xhtml");
     }
     
     
